@@ -11,10 +11,10 @@
   - Exception이 아닌 IllegalArgumentExcpetion, IllegalStateException 등과 같은 명확한 유형을 처리한다.
 
 ## 2.  구현할 기능 목록
-1. 자동차 정의
+1. 이동거리,시도횟수 등 원시,문자열값의 Wrapper 제작
+2. 자동차 정의
    1. 생성자
    2. 필드
-2. 이동거리,시도횟수 등 원시,문자열값의 Wrapper 제작
 3. 자동차 일급콜렉션 생성
 4. 일급콜렉션을 활용 게임 구현
    1. 시도횟수 인식
