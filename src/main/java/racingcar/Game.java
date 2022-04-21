@@ -10,7 +10,7 @@ public class Game {
     }
 
     public void startCarRacing( int tryCount ) {
-        cars.randomMove( tryCount );
-        cars.checkWinner( tryCount );
+        cars.randomMoveCars( tryCount );
+        cars.showWinner( tryCount );
     }
 }
