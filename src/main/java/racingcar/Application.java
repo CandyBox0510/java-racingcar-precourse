@@ -2,7 +2,6 @@ package racingcar;
 
 import camp.nextstep.edu.missionutils.Console;
 import firstClass.Cars;
-import org.junit.jupiter.api.Test;
 import primitiveWrapperClass.TryCount;
 
 import java.util.ArrayList;
@@ -30,36 +29,38 @@ public class Application {
     }
 
     public static boolean makedCar( List<Car> carList ){
-        boolean notYetMakedCars = true;
+        carList.clear();
+        boolean notYetMakedCars = false;
+        System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
+        String[] carNamesArray = Console.readLine().split( "," );
+        for(int i = 0 ; i < carNamesArray.length; i ++){
+            notYetMakedCars = setEachCar( carNamesArray[i], carList ) ? notYetMakedCars : true ;
+        }
+
+        return notYetMakedCars;
+    }
+
+    private static boolean setEachCar(String carName, List<Car> carList){
+        boolean isSet = true;
         try{
-            System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
-            String[] carNamesArray = Console.readLine().split( "," );
-            setEachCar( carNamesArray, carList );
-            notYetMakedCars = false;
-        } catch ( IllegalArgumentException | IllegalStateException e) {
-            e.printStackTrace();
-        } catch ( Exception e){
-            e.printStackTrace();
-        } finally {
-            return notYetMakedCars;
+            Car car = new Car( carName, "" );
+            carList.add( car );
+        }catch(IllegalArgumentException | IllegalStateException e){
+            isSet = false;
+            System.out.println(e.getMessage());
+        }finally {
+            return isSet;
         }
     }
 
-    private static void setEachCar(String[] carNamesArray, List<Car> carList) throws Exception {
-        for(int i = 0 ; i < carNamesArray.length; i ++){
-            Car car = new Car( carNamesArray[i], "" );
-            carList.add( car );
-        }
-    }
-    
     private static TryCount validCount(){
         TryCount tryCount = null;
         try {
             System.out.println("시도할 회수는 몇회인가요?");
             tryCount = new TryCount( Console.readLine() );
-        } catch ( IllegalArgumentException | IllegalStateException e) {
+        } catch (IllegalArgumentException | IllegalStateException e) {
             e.printStackTrace();
-        } catch ( Exception e){
+        } catch (Exception e){
             e.printStackTrace();
         } finally {
             return tryCount;

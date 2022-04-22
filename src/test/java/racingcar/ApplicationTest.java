@@ -48,6 +48,12 @@ class ApplicationTest extends NsTest {
         assertThat( name.length() ).isGreaterThanOrEqualTo( 1 );
 
         assertThatThrownBy(() -> {
+            if(name.length() <= 0){
+                throw new IllegalArgumentException("[ERROR] 이름은 5글자까지만 가능합니다.");
+            }
+        }).isInstanceOf( IllegalArgumentException.class ).hasMessageContaining( "[ERROR]");
+        
+        assertThatThrownBy(() -> {
             if(name.length() > 5){
                 throw new IllegalArgumentException("[ERROR] 이름은 5글자까지만 가능합니다.");
             }
@@ -55,7 +61,18 @@ class ApplicationTest extends NsTest {
 
         assertThatThrownBy(() -> {
             if(name.indexOf( " " ) > -1){
-                throw new IllegalArgumentException("[ERROR] 이름은 공백.");
+                throw new IllegalArgumentException("[ERROR] 이름에 공백 포함.");
+            }
+        }).isInstanceOf( IllegalArgumentException.class ).hasMessageContaining( "[ERROR]");
+    }
+
+    @Test
+    @ParameterizedTest
+    @ValueSource (ints = { 1, 2, 3, 10, 100, -1})
+    void validateNumberRule( int randomNumber ) {
+        assertThatThrownBy(() -> {
+            if(randomNumber < 0 || randomNumber > 9){
+                throw new IllegalArgumentException("[ERROR] 게임에서 사용할 수 있는 랜덤 수가 아닙니다.");
             }
         }).isInstanceOf( IllegalArgumentException.class ).hasMessageContaining( "[ERROR]");
     }

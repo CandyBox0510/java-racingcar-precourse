@@ -1,21 +1,16 @@
 package primitiveWrapperClass;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 public class Name {
     private final String name;
 
-    public Name( final String name ) {
+    public Name( final String name ) throws IllegalArgumentException{
         this.validateNamingRule( name );
         this.name = name;
     }
 
-    @Test
-    @ParameterizedTest
-    @ValueSource ( strings = { "12345", "123456", "12345 " } )
-    private void validateNamingRule( String name ) {
+    private void validateNamingRule( String name ) throws IllegalArgumentException{
         if ( name.length() <= 0 ) {
             throw new IllegalArgumentException( "[ERROR] 이름은 최소 1글자 이상이여야 합니다." );
         }
