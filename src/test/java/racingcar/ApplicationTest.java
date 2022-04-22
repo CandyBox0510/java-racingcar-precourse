@@ -20,7 +20,7 @@ class ApplicationTest extends NsTest {
         assertRandomNumberInRangeTest(
             () -> {
                 run("pobi,woni", "1");
-                assertThat(output()).contains("pobi : -", "woni : ", "최종 우승자는 pobi 입니다.");
+                assertThat(output()).contains("pobi : -", "woni : ", "최종 우승자: pobi");
             },
             MOVING_FORWARD, STOP
         );
@@ -43,7 +43,7 @@ class ApplicationTest extends NsTest {
 
     @Test
     @ParameterizedTest
-    @ValueSource (strings = { "31245", "123412312313 21356", "12345 "})
+    @ValueSource (strings = { "31245", "1234123 12313 21356", "12345 "})
     void validateNamingRule(String name){
         assertThat( name.length() ).isGreaterThanOrEqualTo( 1 );
 
@@ -55,17 +55,8 @@ class ApplicationTest extends NsTest {
 
         assertThatThrownBy(() -> {
             if(name.indexOf( " " ) > -1){
-                throw new IllegalArgumentException("[ERROR] 이름은 5글자까지만 가능합니다.");
+                throw new IllegalArgumentException("[ERROR] 이름은 공백.");
             }
         }).isInstanceOf( IllegalArgumentException.class ).hasMessageContaining( "[ERROR]");
-//
-//
-//        assertThatExceptionOfType( IllegalArgumentException.class ).isThrownBy( () ->{
-//
-//        } ).withMessageMatching( "[ERROR] 이름은 5글자까지만 가능합니다." );
-
-//        if(name.indexOf( " " ) > -1){
-//            throw new IllegalArgumentException("[ERROR] 이름은 공백이 포함될 수 없습니다.");
-//        }
     }
 }
